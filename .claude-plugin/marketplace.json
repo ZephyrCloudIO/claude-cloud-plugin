@@ -1,0 +1,16 @@
+{
+  "name": "zephyr-cloud",
+  "metadata": {
+    "description": "Zephyr Cloud plugins for Claude."
+  },
+  "owner": {
+    "name": "Zephyr Cloud"
+  },
+  "plugins": [
+    {
+      "name": "zephyr-cloud",
+      "source": "./plugins/zephyr-cloud",
+      "description": "Publish static sites to Zephyr Cloud, verify immutable builds, and promote or roll back stable environment URLs."
+    }
+  ]
+}
