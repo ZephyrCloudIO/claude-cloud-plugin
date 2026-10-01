@@ -7,9 +7,10 @@ root = Path(__file__).resolve().parents[1]
 plugin = root / 'plugins/zephyr-cloud'
 manifest = json.loads((plugin / '.claude-plugin/plugin.json').read_text())
 assert manifest['name'] == 'zephyr-cloud'
+assert manifest['displayName'] == 'Zephyr Cloud'
 connector = json.loads((plugin / '.mcp.json').read_text())
 assert connector['mcpServers'] == {
-    'zephyr-cloud': {
+    'Zephyr Cloud': {
         'type': 'http',
         'url': 'https://mcp.zephyr-cloud.io/sites/content/mcp',
     }

@@ -6,9 +6,17 @@ Create and publish small static websites, landing pages and HTML pages from Clau
 
 ## Setup
 
-Install this plugin from the `ZephyrCloudIO/claude-cloud-plugin` marketplace, or upload the plugin ZIP through **Customize > Plugins > Add > Upload plugin**. In the plugin's **Connectors** tab, connect **zephyr-cloud** and complete Zephyr OAuth sign-in. Team and Enterprise administrators may need to make the connector available before members connect with their own accounts.
+Install this plugin from the `ZephyrCloudIO/claude-cloud-plugin` marketplace, or upload the plugin ZIP through **Customize > Plugins > Add > Upload plugin**. In the plugin's **Connectors** tab, connect **Zephyr Cloud** and complete Zephyr OAuth sign-in. Team and Enterprise administrators may need to make the connector available before members connect with their own accounts.
 
 The bundled remote connector is `https://mcp.zephyr-cloud.io/sites/content/mcp`. Claude Code loads it from `.mcp.json`. No API keys or tokens belong in the plugin files or chat.
+
+### Updating the connector name
+
+Version 0.2.2 names the bundled connector **Zephyr Cloud**. The plugin and marketplace identifiers remain `zephyr-cloud`; the plugin's `displayName` does not set its connector's name.
+
+An existing custom connector can retain the name saved when it was added. Updating the plugin does not rename that organization-level registration. If Claude offers to reuse an existing connection, its saved name may still appear. Once the separate connector directory listing is published with **Zephyr Cloud** branding, Claude can apply that branding to matching custom connector URLs. See [Claude's custom connector setup guide](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp).
+
+Claude Code namespaces the renamed bundled server as `plugin:zephyr-cloud:Zephyr Cloud` and normalizes its space in callable tool names to `_`. Existing permission rules or hook matchers that name `mcp__plugin_zephyr-cloud_zephyr-cloud__` need to use `mcp__plugin_zephyr-cloud_Zephyr_Cloud__` instead. See [plugin MCP server naming](https://code.claude.com/docs/en/mcp#use-mcp-servers-from-plugins).
 
 ## Try it
 
