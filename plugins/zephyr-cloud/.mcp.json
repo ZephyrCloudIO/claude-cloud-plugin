@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "zephyr-cloud": {
+    "Zephyr Cloud": {
       "type": "http",
       "url": "https://mcp.zephyr-cloud.io/sites/content/mcp"
     }

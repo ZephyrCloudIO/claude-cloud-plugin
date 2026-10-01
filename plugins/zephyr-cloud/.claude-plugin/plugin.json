@@ -1,7 +1,7 @@
 {
   "name": "zephyr-cloud",
   "displayName": "Zephyr Cloud",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Publish static sites to Zephyr Cloud, verify immutable builds, and promote or roll back stable environment URLs.",
   "author": {
     "name": "Zephyr Cloud",
