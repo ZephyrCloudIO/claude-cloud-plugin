@@ -41,7 +41,7 @@ The remote connector sends deployment content and requested site/organization id
 
 Zephyr stores site configuration, requested organization defaults and publication/retry metadata for its publishing workflow. Builds are retained for inspection and rollback. Clearing a saved organization default removes that scoped preference; it does not remove a site or build. The plugin does not request Claude chat history or memories from the server and does not bundle local executables, hooks, credentials or account-test fixtures. Requests sent through Claude remain subject to Claude's own service terms and settings.
 
-See [Zephyr's privacy policy](https://zephyr-cloud.io/privacy). For privacy, retention or account-support questions, contact [support@zephyr-cloud.io](mailto:support@zephyr-cloud.io).
+See [Zephyr Cloud's privacy policy](https://zephyr-cloud.io/privacy) and [terms of service](https://zephyr-cloud.io/terms), also linked in the main website's footer. For privacy, retention or account-support questions, contact [support@zephyr-cloud.io](mailto:support@zephyr-cloud.io).
 
 ## License
 

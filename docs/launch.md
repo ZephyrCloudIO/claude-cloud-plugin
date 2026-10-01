@@ -8,12 +8,13 @@ Checked 2026-10-01. This repository distributes the plugin; it does not contain 
 | --- | --- |
 | Repository | `https://github.com/ZephyrCloudIO/claude-cloud-plugin` |
 | Plugin folder | `plugins/zephyr-cloud` |
-| Plugin name / version | `zephyr-cloud` / `0.2.2` |
+| Plugin name / version | `zephyr-cloud` / `0.2.3` |
 | Bundled connector name | `Zephyr Cloud` |
 | Marketplace | `zephyr-cloud` |
 | Connector URL | `https://mcp.zephyr-cloud.io/sites/content/mcp` |
 | Public setup documentation after publishing source | `https://github.com/ZephyrCloudIO/claude-cloud-plugin/blob/main/plugins/zephyr-cloud/README.md` |
 | Privacy policy | `https://zephyr-cloud.io/privacy` |
+| Terms of service | `https://zephyr-cloud.io/terms` |
 | Support | `support@zephyr-cloud.io` |
 | Icon | `plugins/zephyr-cloud/assets/zephyr-cloud-icon.png` |
 | License metadata | `Proprietary` in the plugin manifest |
@@ -31,7 +32,9 @@ Submit from the Zephyr Cloud Claude organization that should own both listings. 
 - These tests used the shared production MCP service, which reported v0.5.1 for the update verification. Its backend suite passed 85 tests, type checking, lint, workerd upload checks and a deployment dry-run; those checks belong to the separate backend repository.
 - Signed-in Claude Code also completed six real MCP calls through a local Worker with fake downstream APIs. That is account/tool integration evidence, not a production Claude Code or Cowork publishing test.
 
-The deployment skill copied into this repository is the tested v0.2.0 skill. Version 0.2.1 adds the portal-required 512px PNG icon and explicit privacy-policy metadata. Version 0.2.2 names the bundled connector **Zephyr Cloud**. These packaging changes do not change its deployment workflow. Existing custom connector registrations can retain their earlier saved name; see the [connector naming upgrade notes](../plugins/zephyr-cloud/README.md#updating-the-connector-name).
+The deployment skill copied into this repository is the tested v0.2.0 skill. Version 0.2.1 adds the portal-required 512px PNG icon and explicit privacy-policy metadata. Version 0.2.2 names the bundled connector **Zephyr Cloud**. Version 0.2.3 adds `termsOfServiceUrl` alongside `privacyPolicyUrl`, using the main website's legal pages. These packaging changes do not change its deployment workflow. Existing custom connector registrations can retain their earlier saved name; see the [connector naming upgrade notes](../plugins/zephyr-cloud/README.md#updating-the-connector-name).
+
+The existing directory submission's Listing tab snapshots legal links when the submission is created. It currently has the privacy link and no terms link; the portal identifies `termsOfServiceUrl` as the source key and says newer versions do not update these snapshot details. The packaged v0.2.3 includes both links, but updating source alone does not confirm the existing listing snapshot has changed.
 
 ## Remaining launch steps
 
@@ -39,7 +42,7 @@ The deployment skill copied into this repository is the tested v0.2.0 skill. Ver
 2. Run the directory portal's Validate against the committed plugin folder. Local `claude plugin validate` checks syntax and schema, not every directory requirement or name availability.
 3. Review the shared server's write-tool annotations against Claude's connector checklist. In v0.5.1, `configure_site`, `set_organization_default` and `publish_site_content` declare `destructiveHint: false`; the checklist requests `true` for modifying tools. `promote_build` already declares `true`. This is a backend metadata follow-up, not a publisher rewrite; this repository cannot change the hosted tools.
 4. Prepare a dedicated populated reviewer account and setup instructions. Do not use production operator credentials or commit reviewer credentials. Provide them only through the submission portal after authorization.
-5. Confirm the privacy-policy answers cover deployment content, OAuth, persisted defaults/configuration, retained builds, and Cloudflare hosting. Use the README as the public setup documentation; confirm the listing icon is accepted by the portal.
+5. Use the main website's public [privacy policy](https://zephyr-cloud.io/privacy) and [terms of service](https://zephyr-cloud.io/terms) for the listing's legal links. Both are linked in the website footer and were verified in Chrome on 2026-10-01. The privacy page includes connected-assistant publishing, OAuth/account information, saved configuration/defaults, build retention, and Cloudflare hosting. Use the README as the public setup documentation; confirm the listing icon is accepted by the portal.
 6. Complete portal data-handling/contact fields, directory terms and policy acknowledgements, then submit both listings for review. Terms acceptance and final public publication require the appropriate account owner's approval.
 7. Publish the passing/approved plugin version in the portal. Choose the tracked release branch/tag and update settings intentionally; directory review timing is not fixed.
 
