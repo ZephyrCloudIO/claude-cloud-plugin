@@ -1,7 +1,7 @@
 {
   "name": "zephyr-cloud",
   "displayName": "Zephyr Cloud",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Publish static sites to Zephyr Cloud, verify immutable builds, and promote or roll back stable environment URLs.",
   "author": {
     "name": "Zephyr Cloud",
@@ -10,5 +10,7 @@
   },
   "license": "Proprietary",
   "homepage": "https://github.com/ZephyrCloudIO/claude-cloud-plugin",
-  "repository": "https://github.com/ZephyrCloudIO/claude-cloud-plugin"
+  "repository": "https://github.com/ZephyrCloudIO/claude-cloud-plugin",
+  "icon": "assets/zephyr-cloud-icon.png",
+  "privacyPolicyUrl": "https://zephyr-cloud.io/privacy"
 }

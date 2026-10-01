@@ -1,6 +1,6 @@
 # Zephyr Cloud
 
-![Zephyr Cloud](assets/zephyr-cloud-icon.svg)
+![Zephyr Cloud](assets/zephyr-cloud-icon.png)
 
 Create and publish small static websites, landing pages and HTML pages from Claude. Keep the same live address when you publish an update, inspect retained builds, roll back a release, and remember the organization used for deployments. Sign in with your own Zephyr Cloud account; its existing permissions and entitlements apply.
 

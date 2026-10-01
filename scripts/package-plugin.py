@@ -21,7 +21,7 @@ files = [
     '.mcp.json',
     'skills/deploy-site/SKILL.md',
     'README.md',
-    'assets/zephyr-cloud-icon.svg',
+    'assets/zephyr-cloud-icon.png',
 ]
 output = root / 'dist/zephyr-cloud-claude.zip'
 output.parent.mkdir(exist_ok=True)

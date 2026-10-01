@@ -8,13 +8,13 @@ Checked 2026-10-01. This repository distributes the plugin; it does not contain 
 | --- | --- |
 | Repository | `https://github.com/ZephyrCloudIO/claude-cloud-plugin` |
 | Plugin folder | `plugins/zephyr-cloud` |
-| Plugin name / version | `zephyr-cloud` / `0.2.0` |
+| Plugin name / version | `zephyr-cloud` / `0.2.1` |
 | Marketplace | `zephyr-cloud` |
 | Connector URL | `https://mcp.zephyr-cloud.io/sites/content/mcp` |
 | Public setup documentation after publishing source | `https://github.com/ZephyrCloudIO/claude-cloud-plugin/blob/main/plugins/zephyr-cloud/README.md` |
 | Privacy policy | `https://zephyr-cloud.io/privacy` |
 | Support | `support@zephyr-cloud.io` |
-| Icon | `plugins/zephyr-cloud/assets/zephyr-cloud-icon.svg` |
+| Icon | `plugins/zephyr-cloud/assets/zephyr-cloud-icon.png` |
 | License metadata | `Proprietary` in the plugin manifest |
 
 Submit from the Zephyr Cloud Claude organization that should own both listings. Team/Enterprise submissions require an Owner or the applicable directory permission. Submit the remote server as an MCP connector and the plugin bundle separately, using the same connector URL.
@@ -30,7 +30,7 @@ Submit from the Zephyr Cloud Claude organization that should own both listings. 
 - These tests used the shared production MCP service, which reported v0.5.1 for the update verification. Its backend suite passed 85 tests, type checking, lint, workerd upload checks and a deployment dry-run; those checks belong to the separate backend repository.
 - Signed-in Claude Code also completed six real MCP calls through a local Worker with fake downstream APIs. That is account/tool integration evidence, not a production Claude Code or Cowork publishing test.
 
-The deployment skill copied into this repository is the tested v0.2.0 skill. Added manifest repository/contact metadata and public-facing documentation do not change its deployment workflow.
+The deployment skill copied into this repository is the tested v0.2.0 skill. Version 0.2.1 adds the portal-required 512px PNG icon and explicit privacy-policy metadata. These packaging changes do not change its deployment workflow.
 
 ## Remaining launch steps
 
