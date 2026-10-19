@@ -21,6 +21,7 @@ files = [
     '.claude-plugin/plugin.json',
     '.mcp.json',
     'skills/deploy-site/SKILL.md',
+    'skills/deploy-app/SKILL.md',
     'README.md',
     'assets/zephyr-cloud-icon.png',
 ]

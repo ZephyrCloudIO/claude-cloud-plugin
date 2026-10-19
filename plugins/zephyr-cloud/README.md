@@ -2,11 +2,18 @@
 
 ![Zephyr Cloud](assets/zephyr-cloud-icon.png)
 
-Create and publish small static websites, landing pages and HTML pages from Claude. Keep the same live address when you publish an update, inspect retained builds, roll back a release, and remember the organization used for deployments. Sign in with your own Zephyr Cloud account; its existing permissions and entitlements apply.
+Publish what Claude makes (HTML pages, React components, Markdown documents, SVG images and Mermaid diagrams) to Zephyr Cloud at a public, stable URL. In Claude Code, build and deploy a whole web app project as well. Keep the same live address when you publish an update, inspect retained builds, roll back a release, and remember the organization used for deployments. Sign in with your own Zephyr Cloud account; its existing permissions and entitlements apply.
 
 ## Setup
 
-Install this plugin from the `ZephyrCloudIO/claude-cloud-plugin` marketplace, or upload the plugin ZIP through **Customize > Plugins > Add > Upload plugin**. In the plugin's **Connectors** tab, connect **Zephyr Cloud** and complete Zephyr OAuth sign-in. Team and Enterprise administrators may need to make the connector available before members connect with their own accounts.
+In Claude Code:
+
+```sh
+claude plugin marketplace add ZephyrCloudIO/claude-cloud-plugin
+claude plugin install zephyr-cloud@zephyr-cloud
+```
+
+In Claude chat or Cowork, install this plugin from the `ZephyrCloudIO/claude-cloud-plugin` marketplace, or upload the plugin ZIP through **Customize > Plugins > Add > Upload plugin**. In the plugin's **Connectors** tab, connect **Zephyr Cloud** and complete Zephyr OAuth sign-in. Team and Enterprise administrators may need to make the connector available before members connect with their own accounts.
 
 The bundled remote connector is `https://mcp.zephyr-cloud.io/sites/content/mcp`. Claude Code loads it from `.mcp.json`. No API keys or tokens belong in the plugin files or chat.
 
@@ -21,25 +28,45 @@ Claude Code namespaces the renamed bundled server as `plugin:zephyr-cloud:Zephyr
 ## Try it
 
 - “Make a simple coffee shop page and put it online with Zephyr Cloud.”
+- “Publish this React dashboard artifact to Zephyr.”
 - “Use my selected organization and remember it for this chat.”
 - “Add an autumn-special banner and publish the update at the same live address.”
 - “Show the previous builds and roll back production to the version I select.”
+- In Claude Code: “Build this app and deploy it to Zephyr Cloud.”
 
-Claude creates self-contained HTML or a built static bundle, chooses readable names, and generates the identifiers needed by the connector. With several organizations and no saved choice, it asks which organization owns the site. An unqualified request to remember the organization saves this chat's preference and verifies it; project and account preferences require an explicit scope. Updates reuse the configured site and retain its ownership.
+Claude chooses readable names and generates the identifiers the connector needs. With several organizations and no saved choice, it asks which organization owns the site. An unqualified request to remember the organization saves this chat's preference and verifies it; project and account preferences require an explicit scope. Updates reuse the configured site and retain its ownership.
+
+Claude can also share artifacts through its own artifact publishing. The plugin uses Zephyr when you ask for it, when you have made Zephyr your default host (“Make Zephyr my default host”), or when updating a site it already published. Installing the plugin does not change Claude's built-in behaviour by itself.
 
 “Publish” includes upload and promotion to the stable production URL. “Preview only” returns an immutable build URL. Publishing creates a public site, so include only content intended for public access. Rollback serves a retained build without rebuilding. Publishing and rollout may briefly require edge propagation.
 
-## Limits and verification
+## What can be published
 
-The complete HTML or JSON bundle is limited to **256 KiB UTF-8**, including JSON/base64 overhead. Larger sites require the Zephyr CLI in an environment with shell access. Only built static assets are supported: source projects, SSR and Claude-only runtime APIs need a build/export or replacement before external hosting. No billing, purchases or subscription upgrades are exposed by these seven tools.
+| Source | How | Notes |
+| --- | --- | --- |
+| HTML, React, Markdown, SVG or Mermaid artifact | `publish_artifact` (any Claude surface) | React artifacts use the libraries Claude's artifact runtime offers. Pages that call Claude-only APIs (`window.claude`, `window.storage`) are rejected until those calls are replaced |
+| Hand-made multi-file static site | `publish_site_content` bundle | Up to 200 files, 25 MiB per file, within the 4 MiB MCP request |
+| Web app project with a build | `deploy-app` skill (Claude Code only) | Runs the project's build and the pinned Zephyr CLI. Works for any size and stack |
 
-The skill checks the exact uploaded build before promotion and verifies the served page when fetching is available. A team's Claude network restrictions may prevent fetching `zephyrcloud.app`; in that case Claude reports the limitation and the link can be checked in a browser. This plugin does not change network or permission settings. Installation makes the skill available but does not guarantee automatic provider selection; respect explicit provider choices and existing hosting configurations.
+Server-side rendering, APIs and databases are not hosted by these tools. No billing, purchases or subscription upgrades are exposed.
+
+The skills check the exact uploaded build before promotion and verify the served page when fetching is available. A team's Claude network restrictions may prevent fetching `zephyrcloud.app`. In that case Claude reports the limitation, and the link can be checked in a browser. This plugin does not change network or permission settings. Installation makes the skills available but does not guarantee automatic provider selection. Explicit provider choices and existing hosting configurations take precedence.
+
+## What the plugin runs
+
+- **Remote connector:** the bundled connector runs no local code.
+- **`deploy-app` (Claude Code only):** runs, in your shell and with your approval:
+  - your project's own build script;
+  - `zephyr-cli@1.7.0` (pinned), via `pnpm dlx` or `npx`, for `ze-cli doctor` and `ze-cli deploy`.
+
+  The CLI uploads only the build output directory to Zephyr Cloud, using your Zephyr login, or in a non-interactive shell a personal token you export as `ZE_SECRET_TOKEN` (Zephyr **User settings → User tokens**). It reads your Git remote and `package.json` name to identify the app.
+- **Published React and Mermaid pages:** these load pinned libraries from `esm.sh`, `cdn.tailwindcss.com` and `cdn.jsdelivr.net` in the visitor's browser.
 
 ## Data handling
 
 The remote connector sends deployment content and requested site/organization identifiers to Zephyr Cloud using the connected user's OAuth authorization. The shared Zephyr publisher uses Zephyr's built-in Cloudflare infrastructure for static hosting. Published site assets are served publicly; account organization choices and generated conversation/project context keys must stay outside those assets.
 
-Zephyr stores site configuration, requested organization defaults and publication/retry metadata for its publishing workflow. Builds are retained for inspection and rollback. Clearing a saved organization default removes that scoped preference; it does not remove a site or build. The plugin does not request Claude chat history or memories from the server and does not bundle local executables, hooks, credentials or account-test fixtures. Requests sent through Claude remain subject to Claude's own service terms and settings.
+Zephyr stores site configuration, requested organization defaults and publication/retry metadata for its publishing workflow. Builds are retained for inspection and rollback. Clearing a saved organization default removes that scoped preference; it does not remove a site or build. The plugin does not request Claude chat history or memories from the server and does not bundle local executables, hooks, credentials or account-test fixtures; `deploy-app` only invokes the pinned public Zephyr CLI from npm. Requests sent through Claude remain subject to Claude's own service terms and settings.
 
 See [Zephyr Cloud's privacy policy](https://zephyr-cloud.io/privacy) and [terms of service](https://zephyr-cloud.io/terms), also linked in the main website's footer. For privacy, retention or account-support questions, contact [support@zephyr-cloud.io](mailto:support@zephyr-cloud.io).
 
