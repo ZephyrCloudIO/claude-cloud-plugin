@@ -15,22 +15,24 @@ Claude can also share an artifact through its own artifact publishing. Use Zephy
 
 ## Publish an artifact
 
-Call `publish_artifact` with the artifact's complete source in `content`, its `type`, an optional `title`, the configured `siteId`, and a new UUID `requestId`:
+Call `publish_artifact` with the artifact's complete source in `content`, its `type`, an optional `title`, optional `dependencies`, the configured `siteId`, and a new UUID `requestId`:
 
 | Artifact | `type` | Notes |
 | --- | --- | --- |
 | HTML page | `html` | Published as `index.html` unchanged |
-| React component (`.jsx`/`.tsx`) | `react` | Single file with a default export. Supported imports: `react`, `react-dom`, `lucide-react`, `recharts`, `lodash`, `d3`, `mathjs`, `papaparse`, `xlsx`, `three`, `chart.js`, `tone`, `mammoth`, `@/lib/utils`, and common `@/components/ui/*` modules. Tailwind classes work |
+| React component (`.jsx`/`.tsx`) | `react` | Single file with a default export. May import `react`, `react-dom`, any npm package, `@/lib/utils`, and common `@/components/ui/*` modules. Relative files and other aliases are rejected. Tailwind classes work |
 | Markdown document | `markdown` | Rendered on the server |
 | SVG image | `svg` | Served as a centered page plus `image.svg` |
 | Mermaid diagram | `mermaid` | Rendered in the browser |
 
-If `publish_artifact` is not in the tool list (older connector release), publish HTML with `publish_site_content` and `format: html`. For other types, convert them to self-contained HTML first. Send the source exactly as written; never send a path, file ID or URL. The server rejects what cannot run outside Claude. On rejection, fix the source and publish again with a new requestId:
-- **`window.claude` or `window.storage`:** replace Claude-only calls with static data or `localStorage`, and tell the user what changed.
-- **Unsupported import:** inline the code or replace the library. In Claude Code, the project can instead be built and deployed with `deploy-app`.
+For a React artifact, pass `dependencies` so the published page uses the same package versions as Claude's preview. Include only packages the source imports: `{"lucide-react":"0.263.1","recharts":"2.12.7","lodash":"4.17.21","d3":"7.9.0","mathjs":"13.2.0","papaparse":"5.4.1","xlsx":"0.18.5","three":"0.128.0","chart.js":"4.4.4","tone":"15.0.4","mammoth":"1.8.0"}`. Any other package loads at its latest version and is listed as `unpinnedDependencies`; pin it too if the user needs the page to stay stable.
+
+If `publish_artifact` is not in the tool list (older connector release), publish HTML with `publish_site_content` and `format: html`. For other types, convert them to self-contained HTML first. Send the source exactly as written; never send a path, file ID or URL. The server rejects what cannot run on a published page. On rejection, fix the source and publish again with a new requestId:
+- **`window.claude`, `window.storage` or `window.openai`:** replace host-only calls with static data or `localStorage`, and tell the user what changed.
+- **Unsupported import (relative file, URL or unknown `@/` alias):** inline the code or replace it. In Claude Code, the project can instead be built and deployed with `deploy-app`.
 - **Compile error or missing default export:** fix it.
 
-React and Mermaid pages load pinned libraries from esm.sh, cdn.tailwindcss.com or cdn.jsdelivr.net when viewed. The result lists these hosts as `runtimeHosts`. Mention this only if the user asks about dependencies.
+React and Mermaid pages load libraries from esm.sh, cdn.tailwindcss.com or cdn.jsdelivr.net when viewed. The result lists these hosts as `runtimeHosts`. Mention this only if the user asks about dependencies.
 
 For a hand-made multi-file static site, use `publish_site_content` with `format: bundle` and a JSON string:
 

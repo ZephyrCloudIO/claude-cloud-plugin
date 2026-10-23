@@ -44,7 +44,7 @@ Claude can also share artifacts through its own artifact publishing. The plugin 
 
 | Source | How | Notes |
 | --- | --- | --- |
-| HTML, React, Markdown, SVG or Mermaid artifact | `publish_artifact` (any Claude surface) | React artifacts use the libraries Claude's artifact runtime offers. Pages that call Claude-only APIs (`window.claude`, `window.storage`) are rejected until those calls are replaced |
+| HTML, React, Markdown, SVG or Mermaid artifact | `publish_artifact` (any Claude surface) | React artifacts may import any npm package (loaded from esm.sh); the skill pins the versions Claude's artifact runtime uses. Pages that call host-only APIs (`window.claude`, `window.storage`, `window.openai`) are rejected until those calls are replaced |
 | Hand-made multi-file static site | `publish_site_content` bundle | Up to 200 files, 25 MiB per file, within the 4 MiB MCP request |
 | Web app project with a build | `deploy-app` skill (Claude Code only) | Runs the project's build and the pinned Zephyr CLI. Works for any size and stack |
 
@@ -60,7 +60,7 @@ The skills check the exact uploaded build before promotion and verify the served
   - `zephyr-cli@1.7.0` (pinned), via `pnpm dlx` or `npx`, for `ze-cli doctor` and `ze-cli deploy`.
 
   The CLI uploads only the build output directory to Zephyr Cloud, using your Zephyr login, or in a non-interactive shell a personal token you export as `ZE_SECRET_TOKEN` (Zephyr **User settings → User tokens**). It reads your Git remote and `package.json` name to identify the app.
-- **Published React and Mermaid pages:** these load pinned libraries from `esm.sh`, `cdn.tailwindcss.com` and `cdn.jsdelivr.net` in the visitor's browser.
+- **Published React and Mermaid pages:** these load libraries from `esm.sh`, `cdn.tailwindcss.com` and `cdn.jsdelivr.net` in the visitor's browser.
 
 ## Data handling
 

@@ -38,7 +38,7 @@ The existing directory submission's Listing tab snapshots legal links when the s
 
 ## Version 0.3.0
 
-- `deploy-site` publishes Claude artifacts through the new `publish_artifact` tool. Supported types: HTML, React, Markdown, SVG and Mermaid. The server converts each to a static bundle.
+- `deploy-site` publishes Claude artifacts through the new `publish_artifact` tool. Supported types: HTML, React, Markdown, SVG and Mermaid. The server converts each to a static bundle. The tool is host-neutral and also serves ChatGPT and Grok; this plugin's skill pins React package versions to match Claude's artifact runtime through the `dependencies` input.
 - It no longer claims a 256 KiB limit; backend v0.6.2 removed it, and the 4 MiB MCP request bound applies.
 - The new `deploy-app` skill builds and deploys real projects from Claude Code with pinned `zephyr-cli@1.7.0`.
 - Zephyr is chosen when the user names it or opts in as default host. The plugin does not override Claude's own artifact sharing. The directory policy forbids interfering with other tools.
