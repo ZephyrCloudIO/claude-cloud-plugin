@@ -10,7 +10,7 @@
     {
       "name": "zephyr-cloud",
       "source": "./plugins/zephyr-cloud",
-      "description": "Publish static sites to Zephyr Cloud, verify immutable builds, and promote or roll back stable environment URLs."
+      "description": "Publish Claude artifacts and static sites, or build and deploy web apps from Claude Code, to Zephyr Cloud. Verify immutable builds and promote or roll back stable environment URLs."
     }
   ]
 }

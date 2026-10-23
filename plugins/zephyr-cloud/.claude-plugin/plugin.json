@@ -1,8 +1,8 @@
 {
   "name": "zephyr-cloud",
   "displayName": "Zephyr Cloud",
-  "version": "0.2.3",
-  "description": "Publish static sites to Zephyr Cloud, verify immutable builds, and promote or roll back stable environment URLs.",
+  "version": "0.3.0",
+  "description": "Publish Claude artifacts and static sites, or build and deploy web apps from Claude Code, to Zephyr Cloud. Verify immutable builds and promote or roll back stable environment URLs.",
   "author": {
     "name": "Zephyr Cloud",
     "url": "https://zephyr-cloud.io",

@@ -1,6 +1,6 @@
 # Zephyr Cloud for Claude
 
-Create, publish, update and roll back static sites from Claude using your own Zephyr Cloud account. This repository distributes the native Claude plugin and its marketplace; the hosted MCP service is maintained separately.
+Publish Claude artifacts and static sites, or build and deploy web apps from Claude Code, to Zephyr Cloud using your own account. Update, verify and roll back at stable URLs. This repository distributes the native Claude plugin and its marketplace; the hosted MCP service is maintained separately.
 
 See the [plugin's setup and usage guide](plugins/zephyr-cloud/README.md) for installation, examples, content limits and data handling. The [launch checklist](docs/launch.md) records verification and the remaining public directory steps.
 
@@ -29,4 +29,4 @@ claude plugin validate .claude-plugin/marketplace.json
 python3 scripts/package-plugin.py
 ```
 
-The ZIP at `dist/zephyr-cloud-claude.zip` contains only the plugin manifest, connector declaration, deployment skill, README and icon. Upload it through **Customize > Plugins > Add > Upload plugin** for private testing. The ZIP is not a public directory submission; that submission uses this GitHub repository and plugin path `plugins/zephyr-cloud`.
+The ZIP at `dist/zephyr-cloud-claude.zip` contains only the plugin manifest, connector declaration, the `deploy-site` and `deploy-app` skills, README and icon. Upload it through **Customize > Plugins > Add > Upload plugin** for private testing. The ZIP is not a public directory submission; that submission uses this GitHub repository and plugin path `plugins/zephyr-cloud`.

@@ -8,7 +8,7 @@ Checked 2026-10-01. This repository distributes the plugin; it does not contain 
 | --- | --- |
 | Repository | `https://github.com/ZephyrCloudIO/claude-cloud-plugin` |
 | Plugin folder | `plugins/zephyr-cloud` |
-| Plugin name / version | `zephyr-cloud` / `0.2.3` |
+| Plugin name / version | `zephyr-cloud` / `0.3.0` |
 | Bundled connector name | `Zephyr Cloud` |
 | Marketplace | `zephyr-cloud` |
 | Connector URL | `https://mcp.zephyr-cloud.io/sites/content/mcp` |
@@ -36,11 +36,20 @@ The deployment skill copied into this repository is the tested v0.2.0 skill. Ver
 
 The existing directory submission's Listing tab snapshots legal links when the submission is created. It currently has the privacy link and no terms link; the portal identifies `termsOfServiceUrl` as the source key and says newer versions do not update these snapshot details. The packaged v0.2.3 includes both links, but updating source alone does not confirm the existing listing snapshot has changed.
 
+## Version 0.3.0
+
+- `deploy-site` publishes Claude artifacts through the new `publish_artifact` tool. Supported types: HTML, React, Markdown, SVG and Mermaid. The server converts each to a static bundle. The tool is host-neutral and also serves ChatGPT and Grok; this plugin's skill pins React package versions to match Claude's artifact runtime through the `dependencies` input.
+- It no longer claims a 256 KiB limit; backend v0.6.2 removed it, and the 4 MiB MCP request bound applies.
+- The new `deploy-app` skill builds and deploys real projects from Claude Code with pinned `zephyr-cli@1.7.0`.
+- Zephyr is chosen when the user names it or opts in as default host. The plugin does not override Claude's own artifact sharing. The directory policy forbids interfering with other tools.
+
+`publish_artifact` requires that backend release; until then the skill falls back to `publish_site_content` for HTML.
+
 ## Remaining launch steps
 
 1. Source publication uses this repository's `main` branch with **Public** visibility, authorized on 2026-10-01. The repository was empty and Internal when preparation started. Publishing the source and marketplace does not submit or publish either Claude directory listing; the backend repository remains separate.
 2. Run the directory portal's Validate against the committed plugin folder. Local `claude plugin validate` checks syntax and schema, not every directory requirement or name availability.
-3. Review the shared server's write-tool annotations against Claude's connector checklist. In v0.5.1, `configure_site`, `set_organization_default` and `publish_site_content` declare `destructiveHint: false`; the checklist requests `true` for modifying tools. `promote_build` already declares `true`. This is a backend metadata follow-up, not a publisher rewrite; this repository cannot change the hosted tools.
+3. Release the backend change that marks every write tool `destructiveHint: true` (Claude's review criteria require it) and adds `publish_artifact`. It is on the `feat/claude-artifact-publishing` branch of `zephyr-api-mcp`. The Code Mode `/mcp` endpoint's `execute` tool is a catch-all API tool, which the directory rejects. Submit only `/sites/content/mcp`.
 4. Prepare a dedicated populated reviewer account and setup instructions. Do not use production operator credentials or commit reviewer credentials. Provide them only through the submission portal after authorization.
 5. Use the main website's public [privacy policy](https://zephyr-cloud.io/privacy) and [terms of service](https://zephyr-cloud.io/terms) for the listing's legal links. Both are linked in the website footer and were verified in Chrome on 2026-10-01. The privacy page includes connected-assistant publishing, OAuth/account information, saved configuration/defaults, build retention, and Cloudflare hosting. Use the README as the public setup documentation; confirm the listing icon is accepted by the portal.
 6. Complete portal data-handling/contact fields, directory terms and policy acknowledgements, then submit both listings for review. Terms acceptance and final public publication require the appropriate account owner's approval.
